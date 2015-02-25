@@ -1,0 +1,49 @@
+<h1>Welcome to TicTacToe!</h1>
+
+<% if @game_over %>
+  <h2>
+    <%= @game_over %>
+  </h2>
+<% else %>
+  <h2>
+    It is player <%= @current_player %>'s turn!
+  </h2>
+
+  <p>
+    Enter your selection using the form below
+  </p>
+<% end %>
+
+<% if @game_over %>
+  <%= link_to "Play Again!", new_path %>
+<% else %>
+  <pre>
+    <table>
+      <% @board_arr.board_arr.each do |row| %>
+        <tr>
+          <% row.each do |cell| %>
+            <td>
+              <%= cell == '-' ? '-' : cell %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </pre>
+<% end %>
+
+<%= form_tag(make_move, :method => "POST") do %>
+  <table>
+    <% 3.times do |row| %>
+      <tr>
+        <% 3.times do |cell| %>
+          <td>
+            <%= radio_button_tag("move","#{row},#{cell}") %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  <%= submit_tag "Make Move" %>
+<% end %>
+
